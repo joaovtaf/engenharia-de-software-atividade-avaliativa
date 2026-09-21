@@ -2,7 +2,7 @@
 
 ## Questão 1
 
-### 1.1.
+### 1.1. Cada vez que tentássemos criar um objeto da classe e o ```__new__``` fosse chamado, logo em seguida, o ```__init__``` também seria chamado. Então, mesmo que na prática não foi criado um novo objeto, ele pode inicializá-lo novamente.
 
 ### 1.2
 

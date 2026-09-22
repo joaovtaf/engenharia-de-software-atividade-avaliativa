@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Order:
-    pass
+from src.config import Order
 
 class Payment(ABC):
     @abstractmethod

@@ -54,12 +54,12 @@
 
 ## Questão 8
 
-### 8.1.
+### 8.1. Foi criado o arquivo giftcard.py para o novo método de pagamento. 
 
-### 8.2. 
+### 8.2. Não. A classe OrderService e o seu método process(order) ficaram iguais, pois dependem apenas das abstrações (PaymentProcessor) e não das implementações concretas.
 
-### 8.3. 
+### 8.3. Nenhuma classe existente foi modificada. Só adicionamos o giftcard.py.
 
-### 8.4. 
+### 8.4. O Factory Method encapsulou a lógica de criação do novo método de pagamento dentro da abstração PaymentProcessor. Isso permitiu criar o GiftCardProcessor, que herda a estrutura padrão e apenas sobrescreve o método create_payment() para devolver um GiftCardPayment. O sistema principal continua sendo processor.process_order(), sem precisar saber qual classe concreta está sendo instanciada.
 
-### 8.5. 
+### 8.5. Ambas as extensões respeitam o OCP, adicionando funcionalidades através de novas classes sem alterar o motor principal do OrderService. A diferença principal é que o novo pagamento utiliza o Factory Method para criar um único produto via GiftCardProcessor, que é injetado diretamente no serviço; já o canal KIOSK usa a Abstract Factory para criar uma família de produtos (Checkout e Notification), sendo selecionado dinamicamente através de um dicionário global.

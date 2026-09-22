@@ -46,11 +46,11 @@
 
 ## Questão 7
 
-### 7.1.
+### 7.1. o primeiro teste verifica se a inicialização do Singleton atribui corretamente os valores padrão na primeira vez que a classe é instanciada, esperando que a instância nasça com o ambiente de produção, moeda em BRL e debug desativado. Este comportamento é importante para garantir que a aplicação inicie sempre num estado seguro e previsível.
 
-### 7.2. 
+### 7.2. O segundo teste verifica se o Builder consegue construir um pedido válido sem produtos e avalia a consistência matemática desse estado vazio, aguardando que a lista fique zerada e o método total() retorne zero sem lançar exceções. Isto é importante para mostrar que a lógica de cálculo de preços é tolerante a falhas, evitando quebras no sistema caso um pedido seja acidentalmente processado antes de os itens serem inseridos.
 
-### 7.3. 
+### 7.3. O terceiro teste verifica a exclusividade e separação estrita das instâncias criadas pelas fábricas, garantindo que a WebFactory gera um objeto de interface diferente daquele criado pela MobileFactory. Essa verificação é importante para mostrar a aplicação do padrão Abstract Factory, garantindo que as regras de negócio e de apresentação de um canal específico não vazem para os demais.
 
 ## Questão 8
 

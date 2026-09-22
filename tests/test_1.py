@@ -1,15 +1,25 @@
 from src.config import AppConfig
 
 
-# Duas referências obtidas para a configuração representam o mesmo objeto
-config1 = AppConfig()
-config2 = AppConfig()
-print(config1 is config2) 
+def test_duas_instancias_sao_o_mesmo_objeto():
+    config1 = AppConfig()
+    config2 = AppConfig()
+    assert config1 is config2
 
-# Uma alteração realizada em uma referência pode ser observada pela outra
-config1.environment = 'development'
-print(config2.environment == 'development')
 
-# Os valores alterados não são restaurados quando a configuração é obtida novamente
-config3 = AppConfig()
-print(config3.environment == 'development')
+def test_alteracao_em_uma_referencia_aparece_na_outra():
+    config1 = AppConfig()
+    config2 = AppConfig()
+
+    config1.environment = "development"
+
+    assert config2.environment == "development"
+
+
+def test_valor_alterado_nao_e_restaurado_numa_nova_chamada():
+    config1 = AppConfig()
+    config1.debug = True
+
+    config2 = AppConfig()
+
+    assert config2.debug is True

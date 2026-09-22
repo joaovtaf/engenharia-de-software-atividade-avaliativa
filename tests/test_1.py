@@ -1,4 +1,5 @@
-from src import config
+from src.config import AppConfig
+
 
 # Duas referências obtidas para a configuração representam o mesmo objeto
 config1 = AppConfig()

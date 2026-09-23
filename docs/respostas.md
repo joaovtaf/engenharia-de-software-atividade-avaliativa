@@ -1,5 +1,38 @@
 # Respostas Escritas
 
+## Estrutura dos módulos
+
+```
+.
+├── main.py
+├── requirements.txt
+├── README.md
+├── docs/
+│   └── respostas.md
+├── src/
+│   ├── config.py
+│   ├── payment.py
+│   ├── channel.py
+│   ├── service.py
+│   ├── kiosk.py
+│   └── giftcard.py
+└── tests/
+    ├── test_1.py
+    ├── test_2.py
+    ├── test_3.py
+    ├── test_4.py
+    ├── test_5.py
+    ├── test_6.py
+    ├── test_7.py
+    └── test_8.py
+```
+
+A pasta src tem um arquivo por assunto. O config.py ficou com o AppConfig e também com o Produto, o Order e o OrderBuilder, que são as peças que todo o resto usa como dado de entrada. Formas de pagamento, processors e o registro delas ficaram no payment.py, e o equivalente do lado do canal (checkout, notificação, fábricas e registro) ficou no channel.py. Sobraram pro service.py o OrderService e o EventLogger.
+
+O kiosk.py e o giftcard.py estão separados de propósito. Os dois são extensões que entraram depois, e a graça do exercício era conseguir adicionar canal e forma de pagamento novos sem abrir os arquivos originais, então deixar cada um no seu arquivo é o que deixa isso visível. Se eles estivessem dentro do channel.py e do payment.py, funcionaria igual, mas aí não dava pra mostrar que os arquivos antigos ficaram intactos.
+
+O main.py na raiz é a inicialização da aplicação e o exemplo executável ao mesmo tempo. É lá que os módulos de extensão são importados pra se registrarem, que o AppConfig é obtido, que o pedido é montado pelo builder e que o fluxo roda nos três canais. Os testes ficam em tests, um arquivo por questão, o que deixa fácil conferir o que cada questão pediu.
+
 ## Questão 1
 
 ### 1.1. Cada vez que tentássemos criar um objeto da classe e o ```__new__``` fosse chamado, logo em seguida, o ```__init__``` também seria chamado. Então, mesmo que na prática não tenha sido criado um objeto novo, ele pode inicializá-lo de novo por cima do que já estava lá.
@@ -63,11 +96,3 @@
 ### 8.4. O Factory Method já tinha isolado a criação do objeto de pagamento dentro do create_payment(). Como o fluxo comum mora no process_order e ele só chama create_payment() sem olhar o que volta, bastou escrever uma subclasse de PaymentProcessor devolvendo GiftCardPayment pra forma nova entrar inteira no sistema. Se a escolha da classe concreta estivesse espalhada em if/elif pelo código, cada um desses pontos teria que ser encontrado e alterado.
 
 ### 8.5. As duas extensões seguem o mesmo desenho: um arquivo novo com as classes concretas, uma chamada de registro no fim dele e um import na inicialização da aplicação. Em nenhum dos dois casos o fluxo principal mudou, e em nenhum dos dois foi preciso editar classe existente. A diferença está no que cada padrão precisa criar. O Factory Method do gift card entrega um produto só, o Payment, então uma subclasse de PaymentProcessor dá conta. A Abstract Factory do KIOSK entrega uma família, Checkout e Notification, e a KioskFactory tem que garantir que as duas peças combinam entre si. Os dois também variam por motivos diferentes, a forma de pagamento muda de pedido pra pedido e o canal muda conforme a venda entra pela web, pelo celular ou pelo totem, e é por isso que cada um tem o seu registro em vez de um registro só tentando dar conta das duas coisas.
-
-## Estrutura dos módulos
-
-A pasta src tem um arquivo por assunto. O config.py ficou com o AppConfig e também com o Produto, o Order e o OrderBuilder, que são as peças que todo o resto usa como dado de entrada. Formas de pagamento, processors e o registro delas ficaram no payment.py, e o equivalente do lado do canal (checkout, notificação, fábricas e registro) ficou no channel.py. Sobraram pro service.py o OrderService e o EventLogger.
-
-O kiosk.py e o giftcard.py estão separados de propósito. Os dois são extensões que entraram depois, e a graça do exercício era conseguir adicionar canal e forma de pagamento novos sem abrir os arquivos originais, então deixar cada um no seu arquivo é o que deixa isso visível. Se eles estivessem dentro do channel.py e do payment.py, funcionaria igual, mas aí não dava pra mostrar que os arquivos antigos ficaram intactos.
-
-O main.py na raiz é a inicialização da aplicação e o exemplo executável ao mesmo tempo. É lá que os módulos de extensão são importados pra se registrarem, que o AppConfig é obtido, que o pedido é montado pelo builder e que o fluxo roda nos três canais. Os testes ficam em tests, um arquivo por questão, o que deixa fácil conferir o que cada questão pediu.

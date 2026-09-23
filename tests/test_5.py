@@ -1,3 +1,5 @@
+# Testes da seleção de fábrica e da entrada do KIOSK, questão 5
+
 import pytest
 
 from src.channel import get_channel_factory

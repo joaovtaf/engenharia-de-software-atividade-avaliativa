@@ -1,3 +1,5 @@
+# Testes das famílias de produtos por canal, questão 4
+
 from src.channel import WebFactory, MobileFactory, Checkout, Notification
 from src.config import OrderBuilder, Produto
 

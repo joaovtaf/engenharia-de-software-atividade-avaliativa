@@ -1,3 +1,5 @@
+# Testes do fluxo completo coordenado pelo OrderService, questão 6
+
 from src.config import OrderBuilder, Produto
 from src.channel import get_channel_factory
 from src.payment import PixProcessor, CreditCardProcessor

@@ -1,3 +1,5 @@
+# Questão 3, formas de pagamento e os processors que criam elas (Factory Method)
+
 from abc import ABC, abstractmethod
 
 from src.config import Order
@@ -21,7 +23,7 @@ class BoletoPayment(Payment):
 
 class PaymentProcessor(ABC):
     @abstractmethod
-    def create_payment() -> Payment:
+    def create_payment(self) -> Payment:
         pass
 
     def process_order(self, order : Order) -> None:
@@ -38,3 +40,21 @@ class CreditCardProcessor(PaymentProcessor):
 class BoletoProcessor(PaymentProcessor):
     def create_payment(self):
         return BoletoPayment()
+
+
+_processors = {
+    "PIX": PixProcessor,
+    "CARTAO": CreditCardProcessor,
+    "BOLETO": BoletoProcessor,
+}
+
+
+def register_payment_processor(forma, processor_cls):
+    _processors[forma] = processor_cls
+
+
+def get_payment_processor(forma):
+    processor_cls = _processors.get(forma)
+    if processor_cls is None:
+        raise ValueError(f"Forma de pagamento desconhecida: {forma}")
+    return processor_cls()

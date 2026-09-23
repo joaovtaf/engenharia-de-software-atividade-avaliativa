@@ -1,4 +1,4 @@
-# Questão 5, extensão do canal KIOSK sem mexer em channel.py
+# Canal KIOSK, extensão da questão 5 sem mexer em channel.py
 
 from src.channel import Checkout, Notification, ChannelFactory, register_channel_factory
 from src.config import AppConfig

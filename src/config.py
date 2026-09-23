@@ -1,3 +1,5 @@
+# Configuração compartilhada da aplicação e o pedido com o builder dele
+
 # Questão 1
 
 class AppConfig:

@@ -1,4 +1,4 @@
-# Questão 6
+# Questão 6, coordenação do fluxo do pedido e o registro de eventos
 
 class EventLogger:
     def log(self, order):

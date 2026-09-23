@@ -1,4 +1,4 @@
-# Questão 4 e 5
+# Questão 4 e 5, checkout e notificação de cada canal (Abstract Factory) e o registro das fábricas
 
 from abc import ABC, abstractmethod
 

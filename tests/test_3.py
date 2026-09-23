@@ -1,5 +1,7 @@
+# Testes do Factory Method do pagamento, questão 3
+
 from src.config import OrderBuilder, Produto
-from src.payment import PixProcessor, BoletoProcessor, PixPayment
+from src.payment import get_payment_processor, PixPayment, BoletoPayment
 
 
 def monta_pedido(forma_pagamento):
@@ -12,27 +14,30 @@ def monta_pedido(forma_pagamento):
 
 
 def test_processa_pedido_com_pix(capsys):
-    pedido = monta_pedido("pix")
+    pedido = monta_pedido("PIX")
 
-    PixProcessor().process_order(pedido)
+    get_payment_processor(pedido.pagamento).process_order(pedido)
 
     saida = capsys.readouterr().out
     assert "Pix" in saida
+    assert "89.9" in saida
 
 
 def test_processa_pedido_com_boleto(capsys):
-    pedido = monta_pedido("boleto")
+    pedido = monta_pedido("BOLETO")
 
-    BoletoProcessor().process_order(pedido)
+    get_payment_processor(pedido.pagamento).process_order(pedido)
 
     saida = capsys.readouterr().out
     assert "boleto" in saida
 
 
-def test_forma_de_pagamento_do_pedido_corresponde_ao_processor_usado():
-    pedido = monta_pedido("pix")
+def test_mecanismo_criado_corresponde_a_forma_registrada_no_pedido():
+    pedido_pix = monta_pedido("PIX")
+    pedido_boleto = monta_pedido("BOLETO")
 
-    payment = PixProcessor().create_payment()
+    pagamento_pix = get_payment_processor(pedido_pix.pagamento).create_payment()
+    pagamento_boleto = get_payment_processor(pedido_boleto.pagamento).create_payment()
 
-    assert pedido.pagamento == "pix"
-    assert isinstance(payment, PixPayment)
+    assert isinstance(pagamento_pix, PixPayment)
+    assert isinstance(pagamento_boleto, BoletoPayment)
